@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import AddTask from "../AddTask.jsx/AddTask";
 
@@ -36,6 +36,19 @@ const CalendarGrid = () => {
   const handleNextMonth = () => {
     setCurrentDate(currentDate.add(1, 'month'));
   };
+
+  // Load tasks from localStorage on first render
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("calendarTasks");
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
+
+  // Save tasks to localStorage whenever tasks state changes
+  useEffect(() => {
+    localStorage.setItem("calendarTasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-lg w-full">
