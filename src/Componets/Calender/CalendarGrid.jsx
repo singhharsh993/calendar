@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 import AddTask from "../AddTask.jsx/AddTask";
 
@@ -76,8 +76,7 @@ const CalendarGrid = () => {
             <div
               key={index}
               onClick={() => handleDayClick(day)}
-              className={`
-                border p-3 rounded-lg
+              className={`border p-3 rounded-lg
                 ${isCurrentMonth ? 'bg-white' : 'bg-gray-50'}
                 ${isTodayDate ? 'border-blue-500 border-2' : 'border-gray-200'}
                 text-gray-800
@@ -91,8 +90,7 @@ const CalendarGrid = () => {
                 flex flex-col
               `}
             >
-              <div className={`
-                text-sm font-semibold
+              <div className={`text-sm font-semibold
                 ${isCurrentMonth ? 'text-gray-700' : 'text-gray-400'}
                 ${isTodayDate ? 'bg-blue-500 text-white rounded-full w-7 h-7 flex items-center justify-center' : ''}
               `}>
@@ -100,14 +98,16 @@ const CalendarGrid = () => {
               </div>
 
               {/* Tasks for the day */}
-              <div 
-              className="harsh mt-2 space-y-1"
-             style={{
-              overflow: "scroll",
-              overflowX: "hidden",
-             }}
-  onscroll="this.style.scrollbarWidth='none'"
-  >
+              <div
+                className="mt-2 space-y-1 task-scroll"
+                style={{
+                  maxHeight: "100px",
+                  overflowY: "auto",
+                  overflowX: "hidden",
+                  scrollbarWidth: "none", // Firefox
+                  msOverflowStyle: "none", // IE 10+
+                }}
+              >
                 {dayTasks.map(task => (
                   <div 
                     key={task.id}
